@@ -1,0 +1,3 @@
+import { SimplePage } from "@/components/layout/simple-page";
+export const metadata = { title: "Architecture" };
+export default function ArchitecturePage() { return <SimplePage eyebrow="Approach / Architecture" title="Boundaries carry meaning." intro="Architecture is the practice of choosing and documenting boundaries so change remains possible and responsibility remains visible."><ul><li>Model the system that exists before proposing the system that should exist.</li><li>Put evidence, ownership, and failure modes next to the happy path.</li><li>Prefer reversible decisions where learning is likely to change the answer.</li><li>Use diagrams to create questions, not to end them.</li></ul></SimplePage>; }
