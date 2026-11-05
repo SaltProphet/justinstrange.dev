@@ -1,3 +1,0 @@
-import { SimplePage } from "@/components/layout/simple-page";
-export const metadata = { title: "Process" };
-export default function ProcessPage() { return <SimplePage eyebrow="Approach / Process" title="A loop, not a pipeline." intro="Discovery, design, execution, and verification are connected by feedback rather than treated as isolated phases."><ol><li><strong>Discover:</strong> identify context, actors, constraints, and unknowns.</li><li><strong>Design:</strong> make boundaries and decisions explicit.</li><li><strong>Execute:</strong> build the smallest useful version of the model or system.</li><li><strong>Verify:</strong> compare what happened with what was expected, then update the record.</li></ol></SimplePage>; }

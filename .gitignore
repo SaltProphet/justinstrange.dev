@@ -6,3 +6,5 @@ out
 *.tsbuildinfo
 .env*
 !.env.example
+justinstrange-vercel-ready.zip
+/justinstrange-vercel-ready/

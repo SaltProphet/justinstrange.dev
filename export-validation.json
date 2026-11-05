@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "/",
+    "/blog/",
+    "/research/",
+    "/work/",
+    "/contact/",
+    "/about/",
+    "/work/project-04/",
+    "/work/project-03/",
+    "/work/project-02/",
+    "/work/project-05/",
+    "/work/project-01/",
+    "/research/article-02/",
+    "/research/article-01/"
+  ],
+  "broken": [],
+  "external": [
+    "bsky.app",
+    "github.com",
+    "justinstrange.dev",
+    "www.linkedin.com",
+    "x.com"
+  ]
+}
