@@ -1,4 +1,16 @@
 {
   "trailingSlash": true,
-  "cleanUrls": false
+  "cleanUrls": false,
+  "redirects": [
+    {
+      "source": "/research/article-01/:path*",
+      "destination": "/research/",
+      "permanent": false
+    },
+    {
+      "source": "/research/article-02/:path*",
+      "destination": "/research/",
+      "permanent": false
+    }
+  ]
 }
