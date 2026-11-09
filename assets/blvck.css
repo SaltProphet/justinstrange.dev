@@ -47,9 +47,9 @@
  :is(#home-showcase-meta, #home-showcase-secondary-meta){grid-column:1;grid-row:1;padding:32px;gap:24px;align-items:flex-start;justify-content:space-between}
  :is(#home-showcase-headline, #home-showcase-secondary-headline){font-size:26px;line-height:1.25;max-width:23ch;margin:0 0 16px}
  :is(#home-showcase-summary, #home-showcase-secondary-summary){font-size:13px;line-height:1.7;color:var(--muted);max-width:42ch}
- :is(#home-showcase-link, #home-showcase-secondary-link){display:inline-flex;align-items:center;gap:18px;border-radius:999px;background:var(--accent);color:#11130a;text-decoration:none;font-size:12px;font-weight:600;line-height:1.4;padding:10px 16px}
- :is(#home-showcase-link, #home-showcase-secondary-link)::after{content:"↗";font-size:15px}
- :is(#home-showcase-link, #home-showcase-secondary-link):hover{background:#9BB8DD}
+ :is(#home-showcase-link, #home-showcase-secondary-link, #home-showcase-marketplace-link){display:inline-flex;align-items:center;gap:18px;border-radius:999px;background:var(--accent);color:#11130a;text-decoration:none;font-size:12px;font-weight:600;line-height:1.4;padding:10px 16px}
+ :is(#home-showcase-link, #home-showcase-secondary-link, #home-showcase-marketplace-link)::after{content:"↗";font-size:15px}
+ :is(#home-showcase-link, #home-showcase-secondary-link, #home-showcase-marketplace-link):hover{background:#9BB8DD}
  #work-header{padding:42px 0 28px}
  #work-headline{font-size:40px;margin:8px 0 18px}
  #work-intro{font-size:14px;max-width:60ch}
@@ -135,8 +135,18 @@
 }
 :root[data-theme="light"] body:has(>main[data-visual="blvck"]){--paper:#f6f6f3;--panel:#fff;--ink:#151618;--muted:#60656b;--line:#dcded8;--accent:#3D6FA8;--focus:#3D6FA8;--field-bg:#fff;--field-border:#c8cbc5;--shot-bg:#eeefeb}
 
-:root[data-theme="light"] body:has(>main[data-visual="blvck"]) :is(#home-showcase-link,#home-showcase-secondary-link,.contact-form button){background:#86A9D5;color:#11130a}
-:root[data-theme="light"] body:has(>main[data-visual="blvck"]) :is(#home-showcase-link,#home-showcase-secondary-link,.contact-form button):hover{background:#7599C7}
+:root[data-theme="light"] body:has(>main[data-visual="blvck"]) :is(#home-showcase-link,#home-showcase-secondary-link,#home-showcase-marketplace-link,.contact-form button){background:#86A9D5;color:#11130a}
+:root[data-theme="light"] body:has(>main[data-visual="blvck"]) :is(#home-showcase-link,#home-showcase-secondary-link,#home-showcase-marketplace-link,.contact-form button):hover{background:#7599C7}
 :root[data-theme="light"] body:has(>main[data-visual="blvck"]) #home-hero-cta{background:transparent;color:var(--ink);border:1px solid #8a9096}
 :root[data-theme="light"] body:has(>main[data-visual="blvck"]) #home-hero-cta:hover{background:#eeefeb;border-color:#60656b;color:var(--ink)}
 :root[data-theme="light"] body:has(>main[data-visual="blvck"]) #home-hero-cta:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+/* Hermes Marketplace listing — brand yellow (#f2f200 = --hermes-color-yellow) */
+body:has(>main[data-visual="blvck"]) #home-showcase-marketplace-link{background:#f2f200;color:#11130a}
+body:has(>main[data-visual="blvck"]) #home-showcase-marketplace-link:hover{background:#d6d600;color:#11130a}
+:root[data-theme="light"] body:has(>main[data-visual="blvck"]) #home-showcase-marketplace-link{background:#f2f200;color:#11130a}
+:root[data-theme="light"] body:has(>main[data-visual="blvck"]) #home-showcase-marketplace-link:hover{background:#d6d600;color:#11130a}
+body:has(>main[data-visual="blvck"]) #work-hermes-sentinel-external-link-03{color:#f2f200}
+body:has(>main[data-visual="blvck"]) #work-hermes-sentinel-external-link-03:hover{color:#d6d600}
+:root[data-theme="light"] body:has(>main[data-visual="blvck"]) #work-hermes-sentinel-external-link-03{color:#f2f200}
+:root[data-theme="light"] body:has(>main[data-visual="blvck"]) #work-hermes-sentinel-external-link-03:hover{color:#d6d600}

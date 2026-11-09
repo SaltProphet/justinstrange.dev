@@ -44,7 +44,7 @@ body:has(#home-main)>main{flex:1 0 auto}
 :is(#home-showcase-headline, #home-showcase-secondary-headline){font-size:clamp(1.3rem,2.2vw,1.75rem);max-width:32ch;margin:0 0 10px;line-height:1.25}
 :is(#home-showcase-summary, #home-showcase-secondary-summary){max-width:62ch;color:var(--muted);line-height:1.6}
 :is(#home-showcase, #home-showcase-secondary) img.screenshot{grid-column:2;grid-row:1;align-self:center;width:240px;height:150px;max-height:150px;object-fit:cover;object-position:left top;border:1px solid var(--line)}
-:is(#home-showcase-link, #home-showcase-secondary-link){font-size:.92rem;text-decoration-thickness:1px}
+:is(#home-showcase-link, #home-showcase-secondary-link, #home-showcase-marketplace-link){font-size:.92rem;text-decoration-thickness:1px}
 .site-footer{margin-top:32px;padding:18px 0;background:transparent;border-top:1px solid var(--line)}
 .footer-inner{gap:14px 24px;font-size:.82rem;min-height:0}
 #global-footer-sitemap{gap:6px 12px}
@@ -57,3 +57,9 @@ body:has(#home-main) .site-footer{border-top:0;margin-top:12px}
  .footer-inner{align-items:flex-start;gap:12px;font-size:.8rem}
  #global-footer-sitemap{width:100%;gap:8px 14px}
 }
+
+/* Hermes Marketplace listing — brand yellow (#f2f200 = --hermes-color-yellow) */
+#home-showcase-marketplace-link{background:#f2f200;color:#11130a}
+#home-showcase-marketplace-link:hover{background:#d6d600;color:#11130a}
+#work-hermes-sentinel-external-link-03{color:#f2f200}
+#work-hermes-sentinel-external-link-03:hover{color:#d6d600}
