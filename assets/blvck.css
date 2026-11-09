@@ -3,7 +3,7 @@
 @font-face{font-family:"Portfolio Sans";font-style:normal;font-weight:600;font-display:swap;src:url("/assets/fonts/inter-latin-600-normal.woff2") format("woff2")}
 /* Visual review. Scoped to preserve the Research pages. */
 @scope (body:has(>main[data-visual="blvck"])) {
- :scope{--paper:#0b0c0e;--panel:#111315;--ink:#f4f4f5;--muted:#92959b;--line:#24262a;--accent:#86A9D5;--shot-bg:#101214;--focus:#86A9D5;--field-bg:#111315;--field-border:#303238;--max:960px;background:var(--paper);font-family:"Portfolio Sans","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.6}
+ :scope{--paper:#0b0c0e;--panel:#111315;--ink:#f4f4f5;--muted:#92959b;--line:#24262a;--featured-line:#B4BBC6;--accent:#86A9D5;--shot-bg:#101214;--focus:#86A9D5;--field-bg:#111315;--field-border:#303238;--max:960px;background:var(--paper);font-family:"Portfolio Sans","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.6}
  .shell{width:min(calc(100% - 56px),960px)}
  .site-header{border-bottom:0;background:var(--paper)}
  .header-inner{min-height:88px;gap:28px}
@@ -101,6 +101,13 @@
 
  /* Homepage lower work row + rules + image links (display:contents = layout-neutral wrap) */
  .home-rule{border:0;border-top:1px solid var(--line);margin:32px 0;height:0;display:block;width:100%;background:transparent}
+
+ /* Featured divider under hero — thick line with outlined pill label */
+ .home-featured-divider{display:flex;align-items:center;gap:12px;width:100%;margin:44px 0 40px;padding:0;border:0;background:transparent}
+ .home-featured-line{height:4px;border:0;border-radius:999px;background:var(--featured-line);min-width:1.25rem}
+ .home-featured-line-main{flex:1 1 auto}
+ .home-featured-line-end{flex:0 0 2.25rem;min-width:2.25rem;max-width:2.25rem}
+ .home-featured-label{margin:0;padding:8px 16px;flex:0 0 auto;font-size:14px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;line-height:1;color:var(--ink);background:var(--paper);border:2px solid var(--featured-line);border-radius:999px;box-sizing:border-box}
  #home-more-work{margin:0 0 54px;padding:0}
  #home-more-work-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
  #home-more-work .home-more-card{display:flex;flex-direction:column;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;min-width:0}
@@ -151,12 +158,17 @@
   #about-headline{font-size:clamp(26px,6vw,36px)}
 
   .home-rule{margin:24px 0}
+
+  .home-featured-divider{margin:32px 0 28px;gap:8px}
+  .home-featured-line{height:3px}
+  .home-featured-line-end{flex-basis:1.5rem;min-width:1.5rem;max-width:1.5rem}
+  .home-featured-label{font-size:12px;letter-spacing:.16em;padding:7px 13px;border-width:2px}
   #home-more-work{margin:0 0 32px}
   #home-more-work-grid{grid-template-columns:1fr;gap:16px}
   #home-more-work .home-more-card img.screenshot{height:160px}
  }
 }
-:root[data-theme="light"] body:has(>main[data-visual="blvck"]){--paper:#f6f6f3;--panel:#fff;--ink:#151618;--muted:#60656b;--line:#dcded8;--accent:#3D6FA8;--focus:#3D6FA8;--field-bg:#fff;--field-border:#c8cbc5;--shot-bg:#eeefeb}
+:root[data-theme="light"] body:has(>main[data-visual="blvck"]){--paper:#f6f6f3;--panel:#fff;--ink:#151618;--muted:#60656b;--line:#dcded8;--featured-line:#3F4752;--accent:#3D6FA8;--focus:#3D6FA8;--field-bg:#fff;--field-border:#c8cbc5;--shot-bg:#eeefeb}
 
 :root[data-theme="light"] body:has(>main[data-visual="blvck"]) :is(#home-showcase-link,#home-showcase-secondary-link,#home-showcase-marketplace-link,#home-more-card-01-link,#home-more-card-02-link,.contact-form button){background:#86A9D5;color:#11130a}
 :root[data-theme="light"] body:has(>main[data-visual="blvck"]) :is(#home-showcase-link,#home-showcase-secondary-link,#home-showcase-marketplace-link,#home-more-card-01-link,#home-more-card-02-link,.contact-form button):hover{background:#7599C7}
