@@ -79,3 +79,8 @@ body:has(#home-main) .site-footer{border-top:0;margin-top:12px}
 #research-inferred-intent-drift-main .page-section li+li{margin-top:8px}
 #research-inferred-intent-drift-main .page-section a{overflow-wrap:anywhere}
 #research-inferred-intent-drift-status{margin:0 0 14px}
+
+
+/* H.E.X. blog post — Hermes yellow accent (#f2f200 = --hermes-color-yellow).
+   Yellow is used only as a border, never as text, so contrast holds in light mode. */
+#blog-hex-local-ai-control-center-header{border-left:3px solid #f2f200;padding-left:22px}

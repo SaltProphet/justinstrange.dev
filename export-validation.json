@@ -2,6 +2,7 @@
   "pages": [
     "/",
     "/blog/",
+    "/blog/hex-local-ai-control-center/",
     "/research/",
     "/research/inferred-intent-drift/",
     "/work/",
