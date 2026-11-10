@@ -84,3 +84,16 @@ body:has(#home-main) .site-footer{border-top:0;margin-top:12px}
 /* H.E.X. blog post — Hermes yellow accent (#f2f200 = --hermes-color-yellow).
    Yellow is used only as a border, never as text, so contrast holds in light mode. */
 #blog-hex-local-ai-control-center-header{border-left:3px solid #f2f200;padding-left:22px}
+
+
+/* Audio overview player: sits to the right of the page-header back link; stacks below it on narrow screens. */
+.page-header-audio-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 28px;margin-top:15px}
+.page-header-audio-row .back{margin-top:0}
+.audio-overview{flex:0 1 280px;width:280px;max-width:100%;min-width:0;margin-left:auto}
+.audio-overview-label{margin:0 0 6px;font-size:.82rem;line-height:1.3;color:var(--muted)}
+.audio-overview audio{display:block;width:100%;height:36px;accent-color:var(--accent, #86A9D5)}
+.audio-overview audio:focus-visible{outline:3px solid var(--focus, #86A9D5);outline-offset:3px}
+@media(max-width:760px){
+ .page-header-audio-row{flex-direction:column;align-items:flex-start;gap:14px}
+ .audio-overview{margin-left:0;width:100%;flex-basis:auto}
+}
