@@ -184,9 +184,9 @@ main>img.screenshot.wide-shot.bare{width:100%;height:auto;aspect-ratio:16/9;max-
  .main-nav a{font-size:16px}
 }
 /* Homepage Research featured card and article header image: unframed 2:1, no crop. */
-#home-research-featured img.screenshot{width:100%;height:auto;aspect-ratio:2/1;object-fit:contain;padding:0;border:0;background:none;min-height:0}
-#home-research-featured-title-link{color:inherit;text-decoration:none}
-#home-research-featured-title-link:hover{text-decoration:underline;text-underline-offset:3px}
+#home-research-featured img.screenshot,#home-blog-featured img.screenshot{width:100%;height:auto;aspect-ratio:2/1;object-fit:contain;padding:0;border:0;background:none;min-height:0}
+#home-research-featured-title-link,#home-blog-featured-title-link{color:inherit;text-decoration:none}
+#home-research-featured-title-link:hover,#home-blog-featured-title-link:hover{text-decoration:underline;text-underline-offset:3px}
 #research-inferred-intent-drift-header-image,.article-header-image{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:contain;padding:0;border:0;background:none;margin:24px 0 8px}
 /* Header nudge: wordmark/social slightly left, nav/Theme slightly right. Blog/Research pills centered. */
 .shell.header-inner{width:min(calc(100% - 28px),calc(var(--max) + 20px))}
