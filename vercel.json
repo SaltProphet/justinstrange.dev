@@ -12,5 +12,43 @@
       "destination": "/research/",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": {
+            "re": "(?i).*(bot|gpt|claude|agent|headless|curl|python|scrapy|perplexity|anthropic|openai|wget|axios|node-fetch|undici).*"
+          }
+        }
+      ],
+      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html"
+    },
+    {
+      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
+      "has": [
+        {
+          "type": "header",
+          "key": "sec-ch-ua",
+          "value": {
+            "re": "(?i)HeadlessChrome"
+          }
+        }
+      ],
+      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html"
+    },
+    {
+      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
+      "missing": [
+        {
+          "type": "header",
+          "key": "sec-ch-ua"
+        }
+      ],
+      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html"
+    }
   ]
 }
