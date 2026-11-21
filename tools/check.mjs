@@ -48,7 +48,7 @@ check('clean.html carries no probe tokens', () => {
 check('agent.html carries every literal probe token', () => {
   // The unicode token is stored as tag characters, not ASCII; the next check
   // decodes it. Only the plain-text tokens are checked for literal presence.
-  const missing = [TOKENS.offscreen, TOKENS.display].filter(
+  const missing = [TOKENS.offscreen, TOKENS.display, TOKENS.neutral].filter(
     (t) => !agent.includes(t)
   );
   return missing.length ? `missing ${missing.join(', ')}` : null;
@@ -68,6 +68,27 @@ check('agent.html omits the demo note', () =>
     ? 'note leaked into the probe copy'
     : null
 );
+check('off-screen probe sits inside <main>', () => {
+  const at = agent.indexOf(TOKENS.offscreen);
+  const mainEnd = agent.indexOf('</main>');
+  if (at === -1) return 'probe missing';
+  if (mainEnd === -1) return 'no </main>';
+  return at < mainEnd ? null : 'probe is trailing, not inline';
+});
+check('display probe sits after the footer', () => {
+  const at = agent.indexOf(TOKENS.display);
+  const footerEnd = agent.indexOf('</footer>');
+  if (at === -1) return 'probe missing';
+  if (footerEnd === -1) return 'no </footer>';
+  return at > footerEnd ? null : 'probe is not trailing';
+});
+check('neutral canary carries no instruction', () => {
+  const block = agent.match(/<div style="visibility:hidden">[\s\S]*?<\/div>/);
+  if (!block) return 'canary block missing';
+  return /include|if you can read|respond/i.test(block[0])
+    ? 'canary contains directive wording'
+    : null;
+});
 
 console.log('Routing');
 const rewrites = vercel.rewrites ?? [];
@@ -130,16 +151,20 @@ check('agent.html is marked as the agent variant', () =>
     ? null
     : 'missing variant marker'
 );
-check('Vary covers the routing headers', () => {
+check('Content-Disposition override is configured', () => {
   const found = (vercel.headers ?? []).some((h) =>
     (h.headers ?? []).some(
       (x) =>
-        x.key.toLowerCase() === 'vary' &&
-        /user-agent/.test(x.value) &&
-        /sec-fetch-mode/.test(x.value)
+        x.key.toLowerCase() === 'content-disposition' && /inline/.test(x.value)
     )
   );
-  return found ? null : 'no Vary rule';
+  return found ? null : 'no Content-Disposition rule';
+});
+check('Vary header is not announced', () => {
+  const found = (vercel.headers ?? []).some((h) =>
+    (h.headers ?? []).some((x) => x.key.toLowerCase() === 'vary')
+  );
+  return found ? 'Vary rule still present' : null;
 });
 check('direct /agent.html requests are noindex', () => {
   const found = (vercel.headers ?? []).some(

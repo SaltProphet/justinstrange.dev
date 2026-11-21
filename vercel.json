@@ -84,8 +84,8 @@
       "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
       "headers": [
         {
-          "key": "Vary",
-          "value": "user-agent, sec-ch-ua, sec-fetch-mode"
+          "key": "Content-Disposition",
+          "value": "inline"
         }
       ]
     }

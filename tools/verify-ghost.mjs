@@ -72,6 +72,7 @@ function request(url, headers) {
 }
 
 let failures = 0;
+let tells = 0;
 
 for (const [name, ua, extra, expected] of cases) {
   const sep = base.includes('?') ? '&' : '?';
@@ -84,16 +85,26 @@ for (const [name, ua, extra, expected] of cases) {
     const got = isAgent ? 'agent' : 'clean';
     const meta =
       res.body.match(/name="x-ghost-variant" content="([^"]*)"/)?.[1] ?? '-';
+    const cd = String(res.headers['content-disposition'] ?? '');
+    const cdTell = /filename=/.test(cd);
+    if (cdTell) tells += 1;
     const pass = got === expected;
     if (!pass) failures += 1;
     console.log(
       `${pass ? 'PASS' : 'FAIL'}  ${name.padEnd(19)} expected=${expected.padEnd(5)} ` +
-        `got=${got.padEnd(5)} meta=${String(meta).padEnd(5)} status=${res.status}`
+        `got=${got.padEnd(5)} meta=${String(meta).padEnd(5)} ` +
+        `cd=${cdTell ? 'filename' : 'clean'} status=${res.status}`
     );
   } catch (err) {
     failures += 1;
     console.log(`FAIL  ${name.padEnd(19)} request error: ${err.message}`);
   }
+}
+
+if (tells) {
+  console.log(
+    `\nNOTE: ${tells} response(s) still expose the file name via Content-Disposition`
+  );
 }
 
 if (failures) {
