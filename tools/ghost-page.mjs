@@ -77,19 +77,20 @@ export function probeBlock() {
  * Idempotent: the probe block is inserted at </body>, and any existing probe
  * block is removed first so repeated builds do not stack.
  */
-export function buildAgentHtml(cleanHtml, { stripDemoNote = false } = {}) {
+export function buildAgentHtml(cleanHtml) {
   if (!cleanHtml.includes('</body>')) {
     throw new Error('clean.html has no </body>');
   }
 
   let html = cleanHtml;
 
-  if (stripDemoNote) {
-    html = html.replace(
-      /<!-- ghost-demo-note:start -->[\s\S]*?<!-- ghost-demo-note:end -->/,
-      ''
-    );
-  }
+  // The human-facing demo note explains what is embedded. It must not reach
+  // the probe copy, or the visible text would tell an agent what to look for
+  // and contaminate the measurement.
+  html = html.replace(
+    /<section[^>]*id="ghost-demo-note"[^>]*>[\s\S]*?<\/section>/,
+    ''
+  );
 
   // Flip the variant marker if the clean page carries one.
   html = html.replace(

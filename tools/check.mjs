@@ -60,6 +60,14 @@ check('tag characters decode to the unicode token', () => {
 check('agent.html has no robots noindex meta', () =>
   agent.includes('<meta name="robots"') ? 'found robots meta' : null
 );
+check('clean.html carries the demo note', () =>
+  clean.includes('id="ghost-demo-note"') ? null : 'note missing'
+);
+check('agent.html omits the demo note', () =>
+  agent.includes('id="ghost-demo-note"')
+    ? 'note leaked into the probe copy'
+    : null
+);
 
 console.log('Routing');
 const rewrites = vercel.rewrites ?? [];
