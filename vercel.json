@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
   "cleanUrls": false,
   "redirects": [
@@ -21,7 +22,7 @@
           "type": "header",
           "key": "user-agent",
           "value": {
-            "re": "(?i).*(bot|gpt|claude|agent|headless|curl|python|scrapy|perplexity|anthropic|openai|wget|axios|node-fetch|undici).*"
+            "re": ".*([Bb][Oo][Tt]|[Cc]laude|[Gg][Pp][Tt]|[Aa]gent|[Hh]eadless|[Cc]url|[Pp]ython|[Ww]get|[Aa]xios|[Uu]ndici|[Ss]crapy|[Pp]erplexity|[Aa]nthropic|[Oo]pen[Aa][Ii]|[Nn]ode|[Gg]o-http|[Jj]ava|[Pp]ostman|[Ii]nsomnia|[Hh]ttpie|[Dd]art|[Oo]khttp|[Ff]etch).*"
           }
         }
       ],
@@ -34,7 +35,7 @@
           "type": "header",
           "key": "sec-ch-ua",
           "value": {
-            "re": "(?i)HeadlessChrome"
+            "re": ".*[Hh]eadless.*"
           }
         }
       ],
@@ -42,12 +43,19 @@
     },
     {
       "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
-      "missing": [
+      "has": [
         {
           "type": "header",
-          "key": "sec-ch-ua"
+          "key": "user-agent",
+          "value": {
+            "re": ".*[Mm]ozilla.*"
+          }
         }
       ],
+      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/clean.html"
+    },
+    {
+      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
       "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html"
     }
   ]
