@@ -1,5 +1,4 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
   "cleanUrls": false,
   "redirects": [
@@ -12,82 +11,6 @@
       "source": "/research/article-02/:path*",
       "destination": "/research/",
       "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": {
-            "re": ".*(Googlebot|bingbot|BingPreview|DuckDuckBot|Applebot|YandexBot|Baiduspider|Slurp|facebookexternalhit|Twitterbot|LinkedInBot|Slackbot|Discordbot).*"
-          }
-        }
-      ],
-      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/clean.html"
-    },
-    {
-      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": {
-            "re": ".*([Bb][Oo][Tt]|[Cc]laude|[Gg][Pp][Tt]|[Aa]gent|[Hh]eadless|[Cc]url|[Pp]ython|[Ww]get|[Aa]xios|[Uu]ndici|[Ss]crapy|[Pp]erplexity|[Aa]nthropic|[Oo]pen[Aa][Ii]|[Nn]ode|[Gg]o-http|[Jj]ava|[Pp]ostman|[Ii]nsomnia|[Hh]ttpie|[Dd]art|[Oo]khttp|[Ff]etch).*"
-          }
-        }
-      ],
-      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html"
-    },
-    {
-      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
-      "has": [
-        {
-          "type": "header",
-          "key": "sec-ch-ua",
-          "value": {
-            "re": ".*[Hh]eadless.*"
-          }
-        }
-      ],
-      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html"
-    },
-    {
-      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
-      "has": [
-        {
-          "type": "header",
-          "key": "sec-fetch-mode",
-          "value": "navigate"
-        }
-      ],
-      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/clean.html"
-    },
-    {
-      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
-      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
-      "headers": [
-        {
-          "key": "Content-Disposition",
-          "value": "inline"
-        }
-      ]
     }
   ]
 }
