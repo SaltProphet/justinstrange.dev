@@ -55,6 +55,13 @@ Served the post directory locally and ran Hollowtext against both copies.
 The probe is detectable by the project's own tooling, and the clean copy is
 not artificially flagged.
 
+## Control page
+
+`https://www.justinstrange.dev/about/` is the control for blind-run tests.
+Checked 2026-11-21: 0 probe tokens, 0 tag characters, no variant meta,
+`scan-unicode` reports `clean`. If an agent reports hidden text there, its
+other findings are pattern-matching rather than reading.
+
 ## Routing
 
 Rule order matters: crawler, then agent UA, then headless hint, then
@@ -77,3 +84,18 @@ validated on a preview deployment:
 ```
 node tools/verify-ghost.mjs --base https://<preview>.vercel.app/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/
 ```
+
+### Preview deployments and Vercel SSO
+
+Preview URLs return a 302 to the SSO login unless protection is bypassed. Enable
+**Project Settings → Deployment Protection → Protection Bypass for Automation**,
+then export the generated secret before running the verifier:
+
+```
+$env:VERCEL_AUTOMATION_BYPASS_SECRET = "<secret>"
+node tools/verify-ghost.mjs --base https://<preview>.vercel.app/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/
+```
+
+The verifier sends `x-vercel-protection-bypass` on every request. Without the
+secret, preview validation is not possible and changes must be verified on
+production.

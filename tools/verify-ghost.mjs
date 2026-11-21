@@ -3,6 +3,7 @@
 //
 //   node tools/verify-ghost.mjs
 //   node tools/verify-ghost.mjs --base http://localhost:3000/blog/.../
+//   $env:VERCEL_AUTOMATION_BYPASS_SECRET = "..."; node tools/verify-ghost.mjs --base https://<preview>...
 //
 // Exit code 0 = every client got the expected variant.
 //
@@ -18,6 +19,12 @@ const DEFAULT_BASE =
 const args = process.argv.slice(2);
 const baseArg = args.indexOf('--base');
 const base = baseArg !== -1 ? args[baseArg + 1] : DEFAULT_BASE;
+
+// Preview deployments are behind Vercel SSO by default. When a Protection
+// Bypass for Automation secret is configured, it is sent on every request.
+// See tools/README.md.
+const bypassSecret = process.env.VERCEL_AUTOMATION_BYPASS_SECRET ?? '';
+if (bypassSecret) console.log('using Vercel protection bypass secret');
 
 const CHROME =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
@@ -80,7 +87,9 @@ for (const [name, ua, extra, expected] of cases) {
     .toString(36)
     .slice(2)}`;
   try {
-    const res = await request(url, { 'user-agent': ua, ...extra });
+    const headers = { 'user-agent': ua, ...extra };
+    if (bypassSecret) headers['x-vercel-protection-bypass'] = bypassSecret;
+    const res = await request(url, headers);
     const isAgent = res.body.includes('GHOST-OFFSCREEN-7F3A');
     const got = isAgent ? 'agent' : 'clean';
     const meta =
