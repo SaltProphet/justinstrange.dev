@@ -40,6 +40,15 @@ not artificially flagged.
 
 ## Routing
 
+Rule order matters: crawler, then agent UA, then headless hint, then
+`sec-fetch-mode: navigate` to the clean page, then the agent fallback. Putting
+the navigation rule last means a headless browser or a self-identifying agent
+is never mistaken for a human.
+
+The verifier uses `node:https` on purpose. Node's `fetch` (undici) rewrites
+`sec-fetch-mode` to `cors`, so a fetch-based test can never exercise the
+navigation branch.
+
 `has` conditions do not work under `vercel dev`, so the rewrite matrix must be
 validated on a preview deployment:
 

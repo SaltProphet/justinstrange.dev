@@ -89,22 +89,30 @@ check('rule 1 sends search crawlers to clean.html', () => {
   if (!r || !dest(r).endsWith('clean.html')) return 'not clean.html';
   return hasHeader(r, 'user-agent', 'Googlebot') ? null : 'no crawler matcher';
 });
-check('rule 2 sends navigations to clean.html', () => {
-  const r = rewrites[1];
-  if (!r || !dest(r).endsWith('clean.html')) return 'not clean.html';
-  return hasHeader(r, 'sec-fetch-mode', 'navigate') ? null : 'no navigate matcher';
-});
-check('an agent-UA rule targets agent.html', () => {
-  const found = rewrites.some(
-    (r) => dest(r).endsWith('agent.html') && hasHeader(r, 'user-agent', 'ClaudeBot/1.0')
-  );
-  return found ? null : 'no agent UA matcher';
-});
+const agentRuleIndex = rewrites.findIndex(
+  (r) => dest(r).endsWith('agent.html') && hasHeader(r, 'user-agent', 'ClaudeBot/1.0')
+);
+const navigateRuleIndex = rewrites.findIndex(
+  (r) => dest(r).endsWith('clean.html') && hasHeader(r, 'sec-fetch-mode', 'navigate')
+);
+
+check('an agent-UA rule targets agent.html', () =>
+  agentRuleIndex !== -1 ? null : 'no agent UA matcher'
+);
 check('a headless sec-ch-ua rule targets agent.html', () => {
   const found = rewrites.some(
     (r) => dest(r).endsWith('agent.html') && hasHeader(r, 'sec-ch-ua', 'HeadlessChrome')
   );
   return found ? null : 'no headless matcher';
+});
+check('a navigation rule targets clean.html', () =>
+  navigateRuleIndex !== -1 ? null : 'no navigate matcher'
+);
+check('agent rules precede the navigation rule', () => {
+  if (agentRuleIndex === -1 || navigateRuleIndex === -1) return 'missing rule';
+  return agentRuleIndex < navigateRuleIndex
+    ? null
+    : 'navigation would override an identifying agent UA';
 });
 check('final rule is an unconditional agent.html fallback', () => {
   const r = rewrites[rewrites.length - 1];

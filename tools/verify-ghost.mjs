@@ -6,6 +6,12 @@
 //
 // Exit code 0 = every client got the expected variant.
 //
+// Uses node:http(s) rather than fetch: undici rewrites sec-fetch-mode to
+// "cors", which would make the navigation case untestable.
+//
+import http from 'node:http';
+import https from 'node:https';
+
 const DEFAULT_BASE =
   'https://www.justinstrange.dev/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/';
 
@@ -30,30 +36,54 @@ const cases = [
   ['bingbot', 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)', {}, 'clean'],
   ['twitterbot', 'Twitterbot/1.0', {}, 'clean'],
   ['headless', CHROME, { 'sec-ch-ua': '"HeadlessChrome";v="131", "Chromium";v="131"' }, 'agent'],
+  ['headless+navigate', CHROME, { ...NAV, 'sec-ch-ua': '"HeadlessChrome";v="131"' }, 'agent'],
   ['claudebot', 'Mozilla/5.0 (compatible; ClaudeBot/1.0; +claudebot@anthropic.com)', {}, 'agent'],
+  ['claudebot+navigate', 'Mozilla/5.0 (compatible; ClaudeBot/1.0)', NAV, 'agent'],
   ['gptbot', 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; GPTBot/1.2; +https://openai.com/gptbot', {}, 'agent'],
   ['curl', 'curl/8.4.0', {}, 'agent'],
   ['python', 'python-requests/2.31.0', {}, 'agent'],
   ['go', 'Go-http-client/1.1', {}, 'agent'],
   ['node-fetch', 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)', {}, 'agent'],
+  ['node-cors', CHROME, { 'sec-fetch-mode': 'cors' }, 'agent'],
   ['browser-like agent', CHROME, {}, 'agent'],
   ['empty-ua', '', {}, 'agent'],
 ];
 
+function request(url, headers) {
+  return new Promise((resolve, reject) => {
+    const target = new URL(url);
+    const mod = target.protocol === 'http:' ? http : https;
+    const req = mod.request(
+      target,
+      { method: 'GET', headers, timeout: 30000 },
+      (res) => {
+        let body = '';
+        res.setEncoding('utf8');
+        res.on('data', (chunk) => (body += chunk));
+        res.on('end', () =>
+          resolve({ status: res.statusCode, headers: res.headers, body })
+        );
+      }
+    );
+    req.on('timeout', () => req.destroy(new Error('timeout')));
+    req.on('error', reject);
+    req.end();
+  });
+}
+
 let failures = 0;
 
 for (const [name, ua, extra, expected] of cases) {
-  const url = `${base}${base.includes('?') ? '&' : '?'}cb=${Date.now()}-${Math.random()
+  const sep = base.includes('?') ? '&' : '?';
+  const url = `${base}${sep}cb=${Date.now()}-${Math.random()
     .toString(36)
     .slice(2)}`;
-  const headers = { 'user-agent': ua, ...extra };
   try {
-    const res = await fetch(url, { headers, redirect: 'manual' });
-    const body = await res.text();
-    const isAgent = body.includes('GHOST-OFFSCREEN-7F3A');
+    const res = await request(url, { 'user-agent': ua, ...extra });
+    const isAgent = res.body.includes('GHOST-OFFSCREEN-7F3A');
     const got = isAgent ? 'agent' : 'clean';
     const meta =
-      body.match(/name="x-ghost-variant" content="([^"]*)"/)?.[1] ?? '-';
+      res.body.match(/name="x-ghost-variant" content="([^"]*)"/)?.[1] ?? '-';
     const pass = got === expected;
     if (!pass) failures += 1;
     console.log(

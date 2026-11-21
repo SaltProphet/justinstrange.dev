@@ -33,17 +33,6 @@
       "has": [
         {
           "type": "header",
-          "key": "sec-fetch-mode",
-          "value": "navigate"
-        }
-      ],
-      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/clean.html"
-    },
-    {
-      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
-      "has": [
-        {
-          "type": "header",
           "key": "user-agent",
           "value": {
             "re": ".*([Bb][Oo][Tt]|[Cc]laude|[Gg][Pp][Tt]|[Aa]gent|[Hh]eadless|[Cc]url|[Pp]ython|[Ww]get|[Aa]xios|[Uu]ndici|[Ss]crapy|[Pp]erplexity|[Aa]nthropic|[Oo]pen[Aa][Ii]|[Nn]ode|[Gg]o-http|[Jj]ava|[Pp]ostman|[Ii]nsomnia|[Hh]ttpie|[Dd]art|[Oo]khttp|[Ff]etch).*"
@@ -64,6 +53,17 @@
         }
       ],
       "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/agent.html"
+    },
+    {
+      "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
+      "has": [
+        {
+          "type": "header",
+          "key": "sec-fetch-mode",
+          "value": "navigate"
+        }
+      ],
+      "destination": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/clean.html"
     },
     {
       "source": "/blog/instructions-my-ai-agent-wasnt-supposed-to-follow/",
