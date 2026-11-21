@@ -104,6 +104,27 @@ check('final rule is an unconditional agent.html fallback', () => {
   if (r.has || r.missing) return 'fallback has conditions';
   return dest(r).endsWith('agent.html') ? null : 'not agent.html';
 });
+check('clean.html is marked as the clean variant', () =>
+  clean.includes('<meta name="x-ghost-variant" content="clean"/>')
+    ? null
+    : 'missing variant marker'
+);
+check('agent.html is marked as the agent variant', () =>
+  agent.includes('<meta name="x-ghost-variant" content="agent"/>')
+    ? null
+    : 'missing variant marker'
+);
+check('Vary covers the routing headers', () => {
+  const found = (vercel.headers ?? []).some((h) =>
+    (h.headers ?? []).some(
+      (x) =>
+        x.key.toLowerCase() === 'vary' &&
+        /user-agent/.test(x.value) &&
+        /sec-fetch-mode/.test(x.value)
+    )
+  );
+  return found ? null : 'no Vary rule';
+});
 check('direct /agent.html requests are noindex', () => {
   const found = (vercel.headers ?? []).some(
     (h) =>
