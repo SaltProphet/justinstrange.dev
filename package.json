@@ -1,0 +1,12 @@
+{
+  "name": "justinstrange.dev",
+  "version": "1.0.0",
+  "description": "Personal website of Justin Strange",
+  "private": true,
+  "scripts": {
+    "check-style": "node scripts/check-style.mjs"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
